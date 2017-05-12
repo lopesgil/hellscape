@@ -6,10 +6,11 @@ public class PlayerPlatformerController : PhysicsObject {
 
     public float maxSpeed = 7;
     public float jumpTakeOffSpeed = 7;
+    public int count;
 	
     // Use this for initialization
 	void Start () {
-		
+        count = 0;
 	}
 
     protected override void ComputeVelocity()
@@ -26,5 +27,18 @@ public class PlayerPlatformerController : PhysicsObject {
         }
 
         targetVelocity = move * maxSpeed;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Espinho"))
+        {
+            transform.position = new Vector3(-5f, -0.07f,0);
+        }
+        if(other.gameObject.CompareTag("Moeda"))
+        {
+            other.gameObject.SetActive(false);
+            count++;
+        }
     }
 }
