@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPlatformerController : PhysicsObject {
 
     public float maxSpeed = 7;
     public float jumpTakeOffSpeed = 7;
-    public int count;
-	
+    public static int count;
+    public static bool moving;
+
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
     // Use this for initialization
 	void Start () {
         count = 0;
+        moving = false;
 	}
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+    }
 
     protected override void ComputeVelocity()
     {
@@ -26,6 +37,20 @@ public class PlayerPlatformerController : PhysicsObject {
                 velocity.y = velocity.y * 0.5f;
         }
 
+        bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
+        if (flipSprite)
+        {
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        }
+        if (move.x > 0.1f || move.x < -0.01f)
+        {
+            moving = true;
+            animator.SetBool("moving", true);
+        } else
+        {
+            moving = false;
+            animator.SetBool("moving", false);
+        }
         targetVelocity = move * maxSpeed;
     }
 
@@ -33,7 +58,7 @@ public class PlayerPlatformerController : PhysicsObject {
     {
         if (other.gameObject.CompareTag("Espinho"))
         {
-            transform.position = new Vector3(-5f, -0.07f,0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if(other.gameObject.CompareTag("Moeda"))
         {
