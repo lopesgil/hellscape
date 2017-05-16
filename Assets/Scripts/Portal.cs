@@ -8,10 +8,13 @@ public class Portal : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     public Sprite portalAberto;
     public int moedasPraCompletar;
+    public float counter;
+    public float tempomax04;
 	// Use this for initialization
 	void Start () {
         aberto = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        counter = 0;
 	}
 	
 	// Update is called once per frame
@@ -19,6 +22,18 @@ public class Portal : MonoBehaviour {
         if (GameObject.FindWithTag("Moeda") != null)
         {
             if (PlayerPlatformerController.count >= moedasPraCompletar) aberto = true;
+        }
+        else
+        {
+            string faseAtual = SceneManager.GetActiveScene().name;
+            if (faseAtual == "Fase04")
+            {
+                counter += Time.deltaTime;
+            }
+            if(counter<=tempomax04)
+            {
+                aberto = true;
+            }
         }
         if (aberto)
         {
@@ -32,8 +47,12 @@ public class Portal : MonoBehaviour {
         string faseAtual = SceneManager.GetActiveScene().name;
         if (faseAtual == "Fase01")
         {
+            proximaFase = "Fase04";
+        } else if(faseAtual == "Fase04")
+        {
             proximaFase = "Fase07";
-        } else
+        }
+        else
         {
             proximaFase = "Fase01";
         }
