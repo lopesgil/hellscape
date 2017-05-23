@@ -9,13 +9,29 @@ public class PlayerPlatformerController : PhysicsObject {
     public float jumpTakeOffSpeed = 7;
     public static int count;
     public static bool moving;
+    public static bool gula1, gula2, gula3;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    enum CurrentStage
+    {
+        ganancia,
+        luxuria,
+        ira,
+        orgulho,
+        inveja,
+        gula,
+        preguica
+    }
+    [SerializeField]
+    CurrentStage currentstage;
     // Use this for initialization
-	void Start () {
+    void Start () {
         count = 0;
         moving = false;
+        gula1 = false;
+        gula2 = false;
+        gula3 = false;
 	}
 
     void Awake()
@@ -56,14 +72,58 @@ public class PlayerPlatformerController : PhysicsObject {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Espinho"))
+        switch (currentstage)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        if(other.gameObject.CompareTag("Moeda"))
-        {
-            other.gameObject.SetActive(false);
-            count++;
+            case CurrentStage.ganancia:
+                if (other.gameObject.CompareTag("Moeda"))
+                {
+                    other.gameObject.SetActive(false);
+                    count++;
+                }
+                if (other.gameObject.CompareTag("Espinho"))
+                {
+                    SceneManager.LoadScene("Fase01");
+                }
+                break;
+
+            case CurrentStage.orgulho:
+                if (other.gameObject.CompareTag("Espinho"))
+                {
+                    SceneManager.LoadScene("Fase01");
+                }
+                break;
+            case CurrentStage.gula:
+                if (other.gameObject.CompareTag("EspinhoGula"))
+                {
+                    Vector3 vetor = new Vector3(-5f, 0.06f, 0);
+                    transform.position = vetor;
+                    gula1 = true;
+                }
+                else if(other.gameObject.CompareTag("EspinhoGula2"))
+                {
+                    Vector3 vetor = new Vector3(-5f, 0.06f, 0);
+                    transform.position = vetor;
+                    gula2 = true;
+                }
+                else if(other.gameObject.CompareTag("EspinhoGula3"))
+                {
+                    Vector3 vetor = new Vector3(-5f, 0.06f, 0);
+                    transform.position = vetor;
+                    gula3 = true;
+                }
+                
+                else if(other.gameObject.CompareTag("Espinho"))
+                {
+                    Vector3 vetor = new Vector3(-5f, 0.06f, 0);
+                    transform.position = vetor;
+                }
+                break;
+            default:
+                if (other.gameObject.CompareTag("Espinho"))
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+                break;
         }
     }
 }
