@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Portal : MonoBehaviour {
     public bool aberto;
     private SpriteRenderer spriteRenderer;
+    public Text CountText;
     public Sprite portalAberto;
     public int moedasPraCompletar;
     public float counter;
@@ -27,17 +29,19 @@ public class Portal : MonoBehaviour {
 	void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
         counter = 0;
+        Setcountext();
 	}
 
     // Update is called once per frame
     void Update() {
+        counter += Time.deltaTime;
+        Setcountext();
         switch (currentstage)
         {
             case CurrentStage.ganancia:
                 if (PlayerPlatformerController.count >= moedasPraCompletar) aberto = true;
                 break;
             case CurrentStage.inveja:
-                counter += Time.deltaTime;
                 if(counter<=tempomax04)
                 {
                     aberto = true;
@@ -83,5 +87,9 @@ public class Portal : MonoBehaviour {
         {
             SceneManager.LoadScene(proximaFase);
         }
+    }
+    void Setcountext()
+    {
+        CountText.text = counter.ToString();
     }
 }

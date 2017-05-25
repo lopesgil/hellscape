@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerPlatformerController : PhysicsObject {
 
@@ -10,7 +11,6 @@ public class PlayerPlatformerController : PhysicsObject {
     public static int count;
     public static bool moving;
     public static bool gula1, gula2, gula3;
-
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     enum CurrentStage
@@ -98,24 +98,27 @@ public class PlayerPlatformerController : PhysicsObject {
                     Vector3 vetor = new Vector3(-5f, 0.06f, 0);
                     transform.position = vetor;
                     gula1 = true;
+                    EspinhoGula.muda = true;
                 }
                 else if(other.gameObject.CompareTag("EspinhoGula2"))
                 {
                     Vector3 vetor = new Vector3(-5f, 0.06f, 0);
                     transform.position = vetor;
                     gula2 = true;
+                    EspinhoGula2.muda = true;
                 }
                 else if(other.gameObject.CompareTag("EspinhoGula3"))
                 {
                     Vector3 vetor = new Vector3(-5f, 0.06f, 0);
                     transform.position = vetor;
                     gula3 = true;
+                    EspinhoGula3.muda = true;
+                    
                 }
                 
                 else if(other.gameObject.CompareTag("Espinho"))
                 {
-                    Vector3 vetor = new Vector3(-5f, 0.06f, 0);
-                    transform.position = vetor;
+                    SceneManager.LoadScene("Fase06");
                 }
                 break;
             default:
@@ -126,4 +129,5 @@ public class PlayerPlatformerController : PhysicsObject {
                 break;
         }
     }
+    
 }
