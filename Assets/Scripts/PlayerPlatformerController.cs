@@ -129,5 +129,22 @@ public class PlayerPlatformerController : PhysicsObject {
                 break;
         }
     }
-    
+    /*public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Inimigo")
+        {
+            switch (currentstage)
+            {
+                case CurrentStage.luxuria:
+                    SceneManager.LoadScene("Fase02");
+                    break;
+                case CurrentStage.ira:
+                    SceneManager.LoadScene("Fase03");
+                    break;
+                default:
+                    break;
+            }
+        }
+    }*/
+
 }

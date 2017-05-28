@@ -12,6 +12,7 @@ public class Portal : MonoBehaviour {
     public int moedasPraCompletar;
     public float counter;
     public float tempomax04;
+    private int controle;
 
     enum CurrentStage
     {
@@ -29,6 +30,7 @@ public class Portal : MonoBehaviour {
 	void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
         counter = 0;
+        controle = 0;
         Setcountext();
 	}
 
@@ -90,6 +92,10 @@ public class Portal : MonoBehaviour {
     }
     void Setcountext()
     {
-        CountText.text = counter.ToString();
+        if(counter - controle >=1)
+        {
+            controle++;
+        }
+        CountText.text = controle.ToString();
     }
 }
