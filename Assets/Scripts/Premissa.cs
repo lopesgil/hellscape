@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuInicial : MonoBehaviour
+public class Premissa : MonoBehaviour
 {
 
     // Use this for initialization
@@ -17,7 +17,7 @@ public class MenuInicial : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("Premissa");
+            SceneManager.LoadScene("Cutscene");
 
         }
     }
