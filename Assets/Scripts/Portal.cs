@@ -88,25 +88,28 @@ public class Portal : MonoBehaviour {
         switch(currentstage)
         {
             case CurrentStage.ganancia:
-                proximaFase = "Fase02";
+                proximaFase = "Cutscene2";
                 break;
             case CurrentStage.luxuria:
-                proximaFase = "Fase03";
+                proximaFase = "Cutscene3";
                 break;
             case CurrentStage.ira:
-                proximaFase = "Fase04";
+                proximaFase = "Cutscene4";
                 break;
             case CurrentStage.orgulho:
-                proximaFase = "Fase05";
+                proximaFase = "Cutscene5";
                 break;
             case CurrentStage.inveja:
-                proximaFase = "Fase06";
+                proximaFase = "Cutscene6";
                 break;
             case CurrentStage.gula:
-                proximaFase = "Fase07";
+                proximaFase = "Cutscene7";
+                break;
+            case CurrentStage.preguica:
+                proximaFase = "GameOver";
                 break;
             default:
-                proximaFase = "Fase01";
+                proximaFase = "MenuInicial";
                 break;
         }
         if (aberto && collision.gameObject.CompareTag("Player"))
