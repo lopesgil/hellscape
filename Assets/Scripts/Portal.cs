@@ -9,10 +9,12 @@ public class Portal : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     public Text CountText;
     public Sprite portalAberto;
+    public Sprite portalFechado;
     public int moedasPraCompletar;
     public float counter;
     public float tempomax04;
     private int controle;
+    public int numeroinimigos;
 
     enum CurrentStage
     {
@@ -55,12 +57,28 @@ public class Portal : MonoBehaviour {
                     aberto = true;
                 }
                 break;
+            case CurrentStage.luxuria:
+                if(PlayerPlatformerController.inimigosmortos >0)
+                {
+                    aberto = false;
+                }
+                break;
+            case CurrentStage.ira:
+                if(PlayerPlatformerController.inimigosmortos == numeroinimigos)
+                {
+                    aberto = true;
+                }
+                break;
             default:
                 break;
         }
         if (aberto)
         {
             spriteRenderer.sprite = portalAberto;
+        }
+        else
+        {
+            spriteRenderer.sprite = portalFechado;
         }
 	}
 
@@ -70,6 +88,12 @@ public class Portal : MonoBehaviour {
         switch(currentstage)
         {
             case CurrentStage.ganancia:
+                proximaFase = "Fase02";
+                break;
+            case CurrentStage.luxuria:
+                proximaFase = "Fase03";
+                break;
+            case CurrentStage.ira:
                 proximaFase = "Fase04";
                 break;
             case CurrentStage.orgulho:

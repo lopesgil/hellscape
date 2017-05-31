@@ -13,6 +13,7 @@ public class PlayerPlatformerController : PhysicsObject {
     public static bool gula1, gula2, gula3;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    public static int inimigosmortos;
     enum CurrentStage
     {
         ganancia,
@@ -28,6 +29,7 @@ public class PlayerPlatformerController : PhysicsObject {
     // Use this for initialization
     void Start () {
         count = 0;
+        inimigosmortos = 0;
         moving = false;
         gula1 = false;
         gula2 = false;
@@ -121,6 +123,13 @@ public class PlayerPlatformerController : PhysicsObject {
                     SceneManager.LoadScene("Fase06");
                 }
                 break;
+            case CurrentStage.ira:
+                if(other.gameObject.CompareTag("Espinho"))
+                {
+                    Vector3 vetor = new Vector3(-5f, 0.06f, 0);
+                    transform.position = vetor;
+                }
+                break;
             default:
                 if (other.gameObject.CompareTag("Espinho"))
                 {
@@ -129,22 +138,13 @@ public class PlayerPlatformerController : PhysicsObject {
                 break;
         }
     }
-    /*public void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Inimigo")
+        if (collision.gameObject.tag == "Inimigo")
         {
-            switch (currentstage)
-            {
-                case CurrentStage.luxuria:
-                    SceneManager.LoadScene("Fase02");
-                    break;
-                case CurrentStage.ira:
-                    SceneManager.LoadScene("Fase03");
-                    break;
-                default:
-                    break;
-            }
+            collision. gameObject.SetActive(false);
+            inimigosmortos++;
         }
-    }*/
+    }
 
 }
